@@ -57,14 +57,15 @@
 
 /* ===== STEP NAV (horizontal tabs below top nav) ===== */
 .step-nav {
-    background: var(--bg-white);
-    border-bottom: 1px solid var(--border-light);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-bottom: none;
     position: sticky;
     top: 48px; /* below the nav bar */
     z-index: 190;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
 }
 .step-nav::-webkit-scrollbar { display: none; }
 
@@ -83,34 +84,35 @@
     padding: 14px 20px;
     font-size: 13px;
     font-weight: 600;
-    color: var(--text-light);
+    color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     white-space: nowrap;
-    border-bottom: 2px solid transparent;
+    border-bottom: 3px solid transparent;
     transition: all 0.2s;
     cursor: pointer;
 }
 
 .step-tab:hover {
-    color: var(--primary-purple);
-    background: rgba(102, 126, 234, 0.04);
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .step-tab.active {
-    color: var(--primary-purple);
-    border-bottom-color: var(--primary-purple);
+    color: #ffffff;
+    border-bottom-color: #fbbf24;
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .step-tab.completed {
-    color: var(--success);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .step-num {
     width: 22px;
     height: 22px;
     border-radius: 50%;
-    background: var(--border-light);
-    color: var(--text-light);
+    background: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.8);
     font-size: 11px;
     font-weight: 700;
     display: flex;
@@ -121,8 +123,8 @@
 }
 
 .step-tab.active .step-num {
-    background: var(--primary-purple);
-    color: white;
+    background: #fbbf24;
+    color: #1a1a2e;
 }
 
 .step-tab.completed .step-num {
@@ -286,6 +288,32 @@
     box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.15);
 }
 
+/* ===== SECTION HEADING PANEL ===== */
+.section-heading-panel {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 18px 24px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+}
+
+.section-heading-panel .section-icon {
+    font-size: 28px;
+    margin-bottom: 0;
+    flex-shrink: 0;
+}
+
+.section-heading-panel h2 {
+    font-size: 22px;
+    color: white;
+    margin: 0;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
 .section-icon {
     font-size: 28px;
     margin-bottom: 12px;
@@ -298,6 +326,135 @@
     font-weight: 700;
     line-height: 1.3;
 }
+
+/* ===== HELP DROPDOWN (Troubleshooting) ===== */
+.help-dropdown {
+    margin-top: 32px;
+    border: 2px solid #e0e7ff;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--bg-white);
+    transition: border-color 0.2s;
+}
+
+.help-dropdown:hover {
+    border-color: var(--primary-purple);
+}
+
+.help-dropdown > summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 24px;
+    cursor: pointer;
+    list-style: none;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--primary-purple);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.06), rgba(118, 75, 162, 0.06));
+    transition: background 0.2s;
+}
+
+.help-dropdown > summary::-webkit-details-marker { display: none; }
+
+.help-dropdown > summary:hover {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+}
+
+.help-dropdown > summary .help-icon {
+    font-size: 22px;
+}
+
+.help-dropdown > summary .help-chevron {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--primary-purple);
+    transition: transform 0.2s;
+}
+
+.help-dropdown[open] > summary .help-chevron {
+    transform: rotate(180deg);
+}
+
+.help-dropdown-body {
+    padding: 20px 24px 24px;
+    border-top: 1px solid #e0e7ff;
+}
+
+/* ===== STANDALONE GEEK CORNER SECTION ===== */
+.geek-corner-standalone {
+    background: var(--bg-white);
+    border: 2px solid var(--border-light);
+    border-radius: 16px;
+    padding: 0;
+    margin-bottom: 24px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+}
+
+.geek-corner-standalone:hover {
+    border-color: var(--primary-purple);
+}
+
+.geek-corner-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 24px 32px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.06), rgba(118, 75, 162, 0.04));
+    border-bottom: 1px solid var(--border-light);
+}
+
+.geek-corner-header .geek-icon {
+    font-size: 26px;
+}
+
+.geek-corner-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+.geek-corner-header .geek-subtitle {
+    font-size: 13px;
+    color: var(--text-light);
+    font-style: italic;
+    margin: 0;
+}
+
+.geek-corner-body {
+    padding: 24px 32px 32px;
+}
+
+/* Podcast button styles for consistency */
+.podcast-buttons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 12px;
+}
+
+.podcast-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.podcast-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.podcast-btn-spotify { background: #1DB954; }
+.podcast-btn-apple { background: #D56DFB; }
 
 .content-section p {
     font-size: 16px;
