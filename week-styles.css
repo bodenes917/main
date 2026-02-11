@@ -1046,7 +1046,16 @@
     .week-hero-subtitle { font-size: 16px; }
     .content-section h2 { font-size: 22px; }
     .week-layout { padding: 20px 16px 40px; }
-    .step-tab { padding: 12px 14px; font-size: 12px; }
+    /* Step nav: fill full width evenly so tabs never overflow off-screen */
+    .step-nav-inner { padding: 0; }
+    .step-tab {
+        flex: 1;
+        justify-content: center;
+        padding: 11px 6px;
+        font-size: 11px;
+        text-align: center;
+    }
+    .step-num { width: 18px; height: 18px; font-size: 10px; }
 
     .week-navigation { flex-direction: column; }
     .nav-btn { width: 100%; text-align: center; }
@@ -1199,13 +1208,14 @@
     box-shadow: 0 6px 20px rgba(102,126,234,0.4);
 }
 
-/* On mobile, make it slightly larger for easier tapping */
+/* On mobile: larger tap target, move to right (chat bubble hidden on mobile) */
 @media (max-width: 768px) {
     .back-to-top-btn {
         width: 48px;
         height: 48px;
         bottom: 20px;
-        left: 16px;
+        left: auto;
+        right: 16px;
         font-size: 16px;
     }
 
