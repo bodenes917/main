@@ -624,6 +624,179 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.body.hasAttribute('data-week')) {
         initTrackSelector();
         initCopyButtons();
+        initWeekPageFeatures();
     }
 });
+
+// ===== IN-PAGE PROGRESS BAR + "I'VE DONE THIS" + BACK TO TOP =====
+
+function initWeekPageFeatures() {
+    var body = document.body;
+    if (!body.hasAttribute('data-week')) return;
+
+    var weekNumber = parseInt(body.getAttribute('data-week'));
+    var weekKey = 'week' + weekNumber;
+
+    // 1. Inject reading progress bar inside step-nav
+    var stepNav = document.getElementById('stepNav');
+    if (stepNav) {
+        var bar = document.createElement('div');
+        bar.className = 'week-read-progress-bar';
+        bar.id = 'weekReadProgress';
+        stepNav.appendChild(bar);
+    }
+
+    // 2. Inject "I've done this" CTA after .tracks-container in #experiment
+    var experimentSection = document.getElementById('experiment');
+    if (experimentSection) {
+        var tracksContainer = experimentSection.querySelector('.tracks-container');
+        if (tracksContainer) {
+            var doneCta = document.createElement('div');
+            doneCta.className = 'done-experiment-cta';
+            doneCta.id = 'doneExperimentCta';
+
+            var experimentDone = localStorage.getItem('experimentDone_' + weekKey);
+            if (experimentDone) {
+                doneCta.innerHTML = '<div class="done-experiment-confirmed">' +
+                    '<span class="done-icon">&#x2705;</span>' +
+                    '<div><strong>Experiment completed!</strong>' +
+                    '<p>You\'ve marked this experiment as done. Head to the Reflect section to debrief with Eko.</p></div>' +
+                    '</div>';
+            } else {
+                doneCta.innerHTML = '<p class="done-experiment-prompt">Tried the experiment?</p>' +
+                    '<button class="done-experiment-btn" id="doneExperimentBtn">' +
+                    '<i class="fas fa-check-circle"></i> I\'ve done this</button>' +
+                    '<p class="done-experiment-hint">Mark your experiment complete to track your progress</p>';
+            }
+
+            tracksContainer.parentNode.insertBefore(doneCta, tracksContainer.nextSibling);
+
+            // Wire up button click
+            doneCta.addEventListener('click', function(e) {
+                if (e.target.closest('#doneExperimentBtn')) {
+                    markExperimentDone(weekNumber);
+                }
+            });
+        }
+    }
+
+    // 3. Inject back-to-top floating button
+    var backToTop = document.createElement('button');
+    backToTop.className = 'back-to-top-btn';
+    backToTop.id = 'backToTopBtn';
+    backToTop.setAttribute('aria-label', 'Back to top');
+    backToTop.innerHTML = '<i class="fas fa-arrow-up"></i>';
+    backToTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    document.body.appendChild(backToTop);
+
+    // 4. Load visited sections and update tab states on load
+    var sections = ['welcome', 'video', 'experiment', 'eko'];
+    var visitedSections = JSON.parse(localStorage.getItem('visitedSections_' + weekKey) || '[]');
+
+    // Welcome is visited the moment the user opens the page
+    if (!visitedSections.includes('welcome')) {
+        visitedSections.push('welcome');
+        localStorage.setItem('visitedSections_' + weekKey, JSON.stringify(visitedSections));
+        var current = getProgress().weekProgress[weekKey] || 0;
+        if (current < 10) updateWeekProgress(weekNumber, 10);
+    }
+
+    // If experiment was already marked done, ensure its tab shows completed
+    if (localStorage.getItem('experimentDone_' + weekKey) && !visitedSections.includes('experiment')) {
+        visitedSections.push('experiment');
+        localStorage.setItem('visitedSections_' + weekKey, JSON.stringify(visitedSections));
+    }
+
+    updateStepTabStates(visitedSections);
+
+    // 5. Scroll listener
+    window.addEventListener('scroll', function() {
+        updateReadingProgress(sections, visitedSections, weekKey, weekNumber);
+        updateBackToTopVisibility();
+    });
+}
+
+function updateReadingProgress(sections, visitedSections, weekKey, weekNumber) {
+    // Update thin progress bar
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var scrollPct = docHeight > 0 ? Math.round((scrollTop / docHeight) * 100) : 0;
+    var progressBar = document.getElementById('weekReadProgress');
+    if (progressBar) progressBar.style.width = scrollPct + '%';
+
+    // Milestones: mark section visited when it enters viewport
+    var milestones = { welcome: 10, video: 30, experiment: 50, eko: 80 };
+    var changed = false;
+    for (var i = 0; i < sections.length; i++) {
+        var id = sections[i];
+        if (visitedSections.indexOf(id) === -1) {
+            var el = document.getElementById(id);
+            if (el) {
+                var rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 50) {
+                    visitedSections.push(id);
+                    changed = true;
+                    var currentPct = getProgress().weekProgress[weekKey] || 0;
+                    var milestone = milestones[id] || 0;
+                    if (milestone > currentPct) updateWeekProgress(weekNumber, milestone);
+                }
+            }
+        }
+    }
+    if (changed) {
+        localStorage.setItem('visitedSections_' + weekKey, JSON.stringify(visitedSections));
+        updateStepTabStates(visitedSections);
+    }
+}
+
+function updateStepTabStates(visitedSections) {
+    var tabs = document.querySelectorAll('.step-tab');
+    for (var i = 0; i < tabs.length; i++) {
+        var target = tabs[i].getAttribute('data-target');
+        if (visitedSections.indexOf(target) !== -1 && !tabs[i].classList.contains('completed')) {
+            tabs[i].classList.add('completed');
+            var stepNum = tabs[i].querySelector('.step-num');
+            if (stepNum) stepNum.innerHTML = '<i class="fas fa-check"></i>';
+        }
+    }
+}
+
+function updateBackToTopVisibility() {
+    var btn = document.getElementById('backToTopBtn');
+    if (!btn) return;
+    if (window.pageYOffset > 400) {
+        btn.classList.add('visible');
+    } else {
+        btn.classList.remove('visible');
+    }
+}
+
+function markExperimentDone(weekNumber) {
+    var weekKey = 'week' + weekNumber;
+    localStorage.setItem('experimentDone_' + weekKey, 'true');
+
+    // Update progress to 75% if not already higher
+    var currentPct = getProgress().weekProgress[weekKey] || 0;
+    if (currentPct < 75) updateWeekProgress(weekNumber, 75);
+
+    // Update visited sections so the tab gets a checkmark
+    var visitedSections = JSON.parse(localStorage.getItem('visitedSections_' + weekKey) || '[]');
+    if (visitedSections.indexOf('experiment') === -1) {
+        visitedSections.push('experiment');
+        localStorage.setItem('visitedSections_' + weekKey, JSON.stringify(visitedSections));
+    }
+    updateStepTabStates(visitedSections);
+
+    // Swap button to confirmed state
+    var cta = document.getElementById('doneExperimentCta');
+    if (cta) {
+        cta.innerHTML = '<div class="done-experiment-confirmed">' +
+            '<span class="done-icon">&#x2705;</span>' +
+            '<div><strong>Experiment completed!</strong>' +
+            '<p>You\'ve marked this experiment as done. Head to the Reflect section to debrief with Eko.</p></div>' +
+            '</div>';
+    }
+}
 
