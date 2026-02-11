@@ -306,7 +306,8 @@
     flex-shrink: 0;
 }
 
-.section-heading-panel h2 {
+.section-heading-panel h2,
+.content-section .section-heading-panel h2 {
     font-size: 22px;
     color: white;
     margin: 0;
