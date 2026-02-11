@@ -988,6 +988,7 @@
 
 .password-input {
     width: 100%;
+    box-sizing: border-box;
     padding: 12px 16px;
     border: 2px solid var(--border-light);
     border-radius: 10px;
@@ -1038,6 +1039,7 @@
 }
 
 @media (max-width: 768px) {
+    .password-modal { padding: 28px 24px; }
     .content-section { padding: 28px 20px; }
     .week-hero { padding: 36px 20px 28px; }
     .week-hero-title { font-size: 26px; }
@@ -1087,8 +1089,7 @@
     pointer-events: none;
 }
 
-/* Ensure step-nav has relative positioning for the bar */
-.step-nav { position: relative; }
+/* position: sticky (set above) already creates a positioning context for .week-read-progress-bar */
 
 /* When both active and completed, active (purple) wins over completed (green) */
 .step-tab.active.completed .step-num {
