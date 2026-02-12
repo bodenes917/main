@@ -894,6 +894,25 @@
             createParticles();
             loadTheme();
             initScrollAnimations();
+
+            // Back-to-top button (mobile only)
+            if (window.innerWidth <= 768) {
+                var style = document.createElement('style');
+                style.textContent = '.welcome-back-top{position:fixed;bottom:20px;right:16px;width:48px;height:48px;border-radius:50%;background:#685FFF;color:#fff;border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(104,95,255,0.4);opacity:0;transform:translateY(16px);transition:opacity .25s,transform .25s;z-index:999;pointer-events:none;}.welcome-back-top.visible{opacity:1;transform:translateY(0);pointer-events:all;}';
+                document.head.appendChild(style);
+
+                var btn = document.createElement('button');
+                btn.className = 'welcome-back-top';
+                btn.setAttribute('aria-label', 'Back to top');
+                btn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+                btn.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+                document.body.appendChild(btn);
+
+                window.addEventListener('scroll', function() {
+                    if (window.pageYOffset > 400) { btn.classList.add('visible'); }
+                    else { btn.classList.remove('visible'); }
+                });
+            }
         });
     </script>
 </body>

@@ -647,10 +647,10 @@
                 heroEl.classList.add('celebration-hero');
                 eyebrow.textContent = 'SPRINT COMPLETE';
                 title.textContent = 'You did it! \uD83C\uDF89';
-                subtitle.textContent = 'All 5 weeks done. Revisit any week or grab your certificate below.';
-                cta.innerHTML = 'Download Certificate <i class="fas fa-trophy"></i>';
-                cta.href = '#';
-                cta.onclick = function(e) { e.preventDefault(); if (typeof generateCertificate === 'function') generateCertificate(); };
+                subtitle.textContent = 'All 5 weeks done. Revisit any week below.';
+                cta.innerHTML = 'Revisit Week 1 <i class="fas fa-arrow-right"></i>';
+                cta.href = 'week1.html';
+                cta.onclick = null;
                 meta.textContent = '';
             } else {
                 var wd = weekData[currentWeek];
