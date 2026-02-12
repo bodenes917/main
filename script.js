@@ -534,10 +534,10 @@ function initTrackSelector() {
         '<p class="track-selector-label">Choose your track:</p>' +
         '<div class="track-selector-buttons">' +
             '<button class="track-selector-btn" data-track="ic">' +
-                '<span class="track-selector-icon">&#x1F9D1;&#x200D;&#x1F4BC;</span> Individual Contributor' +
+                '<span class="track-selector-icon">&#x1F9D1;&#x200D;&#x1F4BC;</span> Hands-On Track' +
             '</button>' +
             '<button class="track-selector-btn" data-track="leader">' +
-                '<span class="track-selector-icon">&#x1F454;</span> Leader' +
+                '<span class="track-selector-icon">&#x1F454;</span> Team Lead Track' +
             '</button>' +
         '</div>';
 
