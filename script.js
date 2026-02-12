@@ -282,6 +282,7 @@ function showPasswordPrompt(weekNumber, weekTitle) {
                     Incorrect password. Please try again.
                 </div>
             </form>
+            <button class="password-back-btn" onclick="window.location.href='index.html'">&larr; Back to Home</button>
         </div>
     `;
     

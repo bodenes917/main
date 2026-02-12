@@ -200,22 +200,31 @@
             text-align: center;
         }
 
+        /* stat-number defined below with full styles */
         .stat-number {
-            font-size: 56px;
+            font-size: 64px;
             font-weight: 900;
             line-height: 1;
             margin-bottom: 8px;
-            background: linear-gradient(45deg, #fff, rgba(255,255,255,0.7));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: white;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.15);
         }
 
         .stat-label {
-            font-size: 14px;
+            font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            opacity: 0.8;
+            opacity: 0.85;
+            font-weight: 600;
+        }
+
+        .stat-item {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 16px;
+            padding: 20px 32px;
+            backdrop-filter: blur(4px);
+            min-width: 140px;
         }
 
         .container {
@@ -281,7 +290,20 @@
         .flow-step {
             flex: 1;
             text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
         }
+
+        .flow-step.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .flow-step:nth-child(1).visible { transition-delay: 0s; }
+        .flow-step:nth-child(3).visible { transition-delay: 0.12s; }
+        .flow-step:nth-child(5).visible { transition-delay: 0.24s; }
+        .flow-step:nth-child(7).visible { transition-delay: 0.36s; }
 
         .step-visual {
             position: relative;
@@ -331,7 +353,10 @@
             color: var(--border-light);
             font-weight: 300;
             flex-shrink: 0;
+            opacity: 0;
+            transition: opacity 0.4s ease 0.5s;
         }
+        .flow-connector.visible { opacity: 1; }
 
         .flow-step h4 {
             font-size: 20px;
@@ -359,8 +384,19 @@
             text-align: center;
             padding: 24px;
             border-radius: 12px;
-            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(16px);
         }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.5s ease, transform 0.5s ease, background 0.3s;
+        }
+
+        .feature-card:nth-child(1).visible { transition-delay: 0.05s; }
+        .feature-card:nth-child(2).visible { transition-delay: 0.15s; }
+        .feature-card:nth-child(3).visible { transition-delay: 0.25s; }
 
         .feature-card:hover {
             background: rgba(102, 126, 234, 0.05);
@@ -401,13 +437,26 @@
             border-radius: 16px;
             border: 2px solid var(--border-light);
             transition: all 0.3s;
-            animation: fadeInUp 0.6s ease both;
+            opacity: 0;
+            transform: translateY(28px);
         }
 
-        .capability-card:nth-child(1) { animation-delay: 0.1s; }
-        .capability-card:nth-child(2) { animation-delay: 0.2s; }
-        .capability-card:nth-child(3) { animation-delay: 0.3s; }
-        .capability-card:nth-child(4) { animation-delay: 0.4s; }
+        .capability-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.55s ease, transform 0.55s ease, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .capability-card:nth-child(1).visible { transition-delay: 0.05s; }
+        .capability-card:nth-child(2).visible { transition-delay: 0.15s; }
+        .capability-card:nth-child(3).visible { transition-delay: 0.25s; }
+        .capability-card:nth-child(4).visible { transition-delay: 0.35s; }
+
+        .capability-icon {
+            font-size: 42px;
+            margin-bottom: 16px;
+            display: block;
+        }
 
         .dark-mode .capability-card {
             background: #2d3748;
@@ -732,21 +781,25 @@
 
             <div class="capabilities-grid">
                 <div class="capability-card">
-                    <div class="capability-weeks">Weeks 1-2</div>
+                    <span class="capability-icon">&#x1F9E0;</span>
+                    <div class="capability-weeks">Weeks 1–2</div>
                     <h3>Learning Agility</h3>
                     <p>Getting comfortable with not knowing everything. Staying open to new ways of working, even when you've been doing it your way for years.</p>
                 </div>
                 <div class="capability-card">
+                    <span class="capability-icon">&#x1F5E3;&#xFE0F;</span>
                     <div class="capability-weeks">Week 3</div>
                     <h3>Speaking Up Safely</h3>
                     <p>Making it okay to ask questions, share work-in-progress, and learn without worrying about how it looks.</p>
                 </div>
                 <div class="capability-card">
+                    <span class="capability-icon">&#x1F50D;</span>
                     <div class="capability-weeks">Week 4</div>
                     <h3>Learning From Experience</h3>
                     <p>Looking back at what you tried, figuring out what worked, and turning that into something you do naturally.</p>
                 </div>
                 <div class="capability-card">
+                    <span class="capability-icon">&#x1F30D;</span>
                     <div class="capability-weeks">Week 5</div>
                     <h3>Seeing the Bigger Picture</h3>
                     <p>Stepping back to look at how your whole job fits together. Finding where AI can take the routine work off your plate so you can focus on what matters.</p>
@@ -820,10 +873,27 @@
             window.location.href = 'index.html';
         }
 
+        // Scroll-triggered animations
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.flow-step, .flow-connector, .capability-card, .feature-card').forEach(function(el) {
+                observer.observe(el);
+            });
+        }
+
         // Initialize welcome page
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
             loadTheme();
+            initScrollAnimations();
 
             // Back-to-top button (mobile only)
             if (window.innerWidth <= 768) {
