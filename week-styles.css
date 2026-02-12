@@ -1021,6 +1021,19 @@
 }
 .password-error.show { display: block; }
 
+.password-back-btn {
+    display: block;
+    margin: 16px auto 0;
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 4px;
+}
+.password-back-btn:hover { color: var(--text-dark); }
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 960px) {
     .week-layout {
