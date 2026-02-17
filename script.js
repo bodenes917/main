@@ -154,8 +154,11 @@ function resetProgress() {
     }
 }
 
-// ===== COMPLETION BADGE =====
+// ===== COMPLETION BADGE WITH EMOJI BURST =====
 function showCompletionBadge(weekNumber) {
+    // Create emoji burst
+    createEmojiBurst();
+
     const badge = document.createElement('div');
     badge.className = 'completion-badge-popup';
     badge.innerHTML = `
@@ -166,15 +169,43 @@ function showCompletionBadge(weekNumber) {
         </div>
     `;
     document.body.appendChild(badge);
-    
+
     setTimeout(() => {
         badge.classList.add('show');
     }, 100);
-    
+
     setTimeout(() => {
         badge.classList.remove('show');
         setTimeout(() => badge.remove(), 300);
     }, 3000);
+}
+
+// ===== EMOJI BURST CELEBRATION =====
+function createEmojiBurst() {
+    const emojis = ['🎉', '🎊', '✨', '🌟', '⭐', '💫', '🚀', '🔥', '💪', '👏', '🎯', '💯'];
+    const burstCount = 30;
+
+    for (let i = 0; i < burstCount; i++) {
+        const emoji = document.createElement('div');
+        emoji.className = 'emoji-burst';
+        emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+        // Random starting position along the bottom
+        const startX = Math.random() * 100;
+        emoji.style.left = startX + '%';
+
+        // Random animation delay
+        emoji.style.animationDelay = (Math.random() * 0.3) + 's';
+
+        // Random horizontal drift
+        const drift = (Math.random() - 0.5) * 200;
+        emoji.style.setProperty('--drift', drift + 'px');
+
+        document.body.appendChild(emoji);
+
+        // Remove after animation completes
+        setTimeout(() => emoji.remove(), 2000);
+    }
 }
 
 // ===== CERTIFICATE GENERATION =====
@@ -681,7 +712,38 @@ function initWeekPageFeatures() {
         }
     }
 
-    // 3. Inject back-to-top floating button
+    // 3. Inject "Mark Week Complete" button after Eko section
+    var ekoSection = document.getElementById('eko');
+    if (ekoSection) {
+        var completeBtn = document.createElement('div');
+        completeBtn.className = 'complete-week-container';
+        completeBtn.id = 'completeWeekContainer';
+
+        var progress = getProgress();
+        var weekProgress = progress.weekProgress[weekKey] || 0;
+        var isCompleted = progress.completedWeeks && progress.completedWeeks.includes(weekKey);
+
+        if (isCompleted) {
+            completeBtn.innerHTML = '<button class="complete-week-btn completed" disabled>' +
+                '<i class="fas fa-check-circle"></i> Week Completed!</button>';
+        } else {
+            completeBtn.innerHTML = '<button class="complete-week-btn" id="completeWeekBtn">' +
+                '<i class="fas fa-trophy"></i> Mark Week Complete</button>' +
+                '<p class="complete-hint">Click when you\'ve finished all steps</p>';
+        }
+
+        ekoSection.parentNode.insertBefore(completeBtn, ekoSection.nextSibling);
+
+        // Wire up button click
+        var btn = document.getElementById('completeWeekBtn');
+        if (btn) {
+            btn.addEventListener('click', function() {
+                completeWeek(weekNumber);
+            });
+        }
+    }
+
+    // 4. Inject back-to-top floating button
     var backToTop = document.createElement('button');
     backToTop.className = 'back-to-top-btn';
     backToTop.id = 'backToTopBtn';
@@ -692,7 +754,7 @@ function initWeekPageFeatures() {
     });
     document.body.appendChild(backToTop);
 
-    // 4. Load visited sections and update tab states on load
+    // 5. Load visited sections and update tab states on load
     var sections = ['welcome', 'video', 'experiment', 'eko'];
     var visitedSections = JSON.parse(localStorage.getItem('visitedSections_' + weekKey) || '[]');
 
@@ -712,7 +774,7 @@ function initWeekPageFeatures() {
 
     updateStepTabStates(visitedSections);
 
-    // 5. Scroll listener
+    // 6. Scroll listener
     window.addEventListener('scroll', function() {
         updateReadingProgress(sections, visitedSections, weekKey, weekNumber);
         updateBackToTopVisibility();
