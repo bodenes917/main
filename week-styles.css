@@ -1338,3 +1338,193 @@
         transform: translateX(var(--drift)) rotate(360deg) scale(0.8);
     }
 }
+
+/* ===== EKO DISCLAIMER MODAL ===== */
+.eko-disclaimer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(5px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.25s ease;
+}
+
+.eko-disclaimer-overlay.eko-disclaimer-hiding {
+    animation: fadeOut 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+.eko-disclaimer-modal {
+    background: white;
+    border-radius: 20px;
+    max-width: 560px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(24px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+
+.eko-disclaimer-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    padding: 24px 28px;
+    border-radius: 20px 20px 0 0;
+}
+
+.eko-disclaimer-avatar {
+    font-size: 40px;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.eko-disclaimer-header h2 {
+    font-size: 20px;
+    color: white;
+    margin: 0 0 4px;
+}
+
+.eko-disclaimer-tagline {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+}
+
+.eko-disclaimer-body {
+    padding: 28px 28px 0;
+}
+
+.eko-disclaimer-intro {
+    font-size: 15px;
+    color: var(--text-body);
+    line-height: 1.6;
+    margin: 0 0 20px;
+}
+
+.eko-disclaimer-subhead {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-light);
+    margin: 0 0 12px;
+}
+
+.eko-disclaimer-list {
+    margin: 0 0 20px;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.eko-disclaimer-list li {
+    font-size: 14px;
+    color: var(--text-body);
+    line-height: 1.5;
+}
+
+.eko-disclaimer-closing {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin: 0;
+    padding: 16px 0;
+    border-top: 1px solid var(--border-light);
+}
+
+.eko-disclaimer-footer {
+    padding: 20px 28px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.eko-disclaimer-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    padding: 14px 16px;
+    background: rgba(102, 126, 234, 0.05);
+    border: 1px solid rgba(102, 126, 234, 0.15);
+    border-radius: 10px;
+    transition: background 0.2s;
+}
+
+.eko-disclaimer-check:hover {
+    background: rgba(102, 126, 234, 0.08);
+}
+
+.eko-disclaimer-check input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    accent-color: var(--primary-purple);
+    cursor: pointer;
+}
+
+.eko-disclaimer-check span {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.4;
+}
+
+.eko-disclaimer-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--primary-purple), var(--primary-dark));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.eko-disclaimer-btn:disabled {
+    background: #d1d5db;
+    color: #9ca3af;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.eko-disclaimer-btn:not(:disabled):hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.35);
+}
+
+@media (max-width: 600px) {
+    .eko-disclaimer-modal { border-radius: 16px; }
+    .eko-disclaimer-header { padding: 20px; border-radius: 16px 16px 0 0; }
+    .eko-disclaimer-body { padding: 20px 20px 0; }
+    .eko-disclaimer-footer { padding: 16px 20px 24px; }
+}
