@@ -339,8 +339,9 @@ function showPasswordPrompt(weekNumber, weekTitle) {
 }
 
 function revealContent() {
-    // Show the Eko disclaimer once before revealing content for the first time
-    if (!localStorage.getItem('ekoAgreed')) {
+    // Show the Eko disclaimer once on Week 1 only
+    var weekNumber = document.body.getAttribute('data-week');
+    if (weekNumber === '1' && !localStorage.getItem('ekoAgreed')) {
         showEkoDisclaimer();
         return;
     }
@@ -623,27 +624,14 @@ window.addEventListener('focus', function() {
 
 // ===== TRACK SELECTOR (IC vs Leader) =====
 function initTrackSelector() {
+    var selector = document.querySelector('.track-selector');
+    if (!selector) return;
+
     var tracksContainer = document.querySelector('.tracks-container');
     if (!tracksContainer) return;
 
     var trackCards = tracksContainer.querySelectorAll('.track-card');
     if (trackCards.length < 2) return;
-
-    // Create selector
-    var selector = document.createElement('div');
-    selector.className = 'track-selector';
-    selector.innerHTML =
-        '<p class="track-selector-label">Choose your track:</p>' +
-        '<div class="track-selector-buttons">' +
-            '<button class="track-selector-btn" data-track="ic">' +
-                '<span class="track-selector-icon">&#x1F9D1;&#x200D;&#x1F4BC;</span> Hands-On Track' +
-            '</button>' +
-            '<button class="track-selector-btn" data-track="leader">' +
-                '<span class="track-selector-icon">&#x1F454;</span> Team Lead Track' +
-            '</button>' +
-        '</div>';
-
-    tracksContainer.parentNode.insertBefore(selector, tracksContainer);
 
     // Load saved preference
     var savedTrack = localStorage.getItem('sprintTrack');

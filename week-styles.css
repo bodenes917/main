@@ -8,6 +8,7 @@
 :root {
     --primary-purple: #667eea;
     --primary-dark: #764ba2;
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     --accent-yellow: #fbbf24;
     --accent-blue: #3b82f6;
     --success: #10b981;
@@ -57,7 +58,7 @@
 
 /* ===== STEP NAV (horizontal tabs below top nav) ===== */
 .step-nav {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--gradient-primary);
     border-bottom: none;
     position: sticky;
     top: 48px; /* below the nav bar */
@@ -134,7 +135,7 @@
 
 /* ===== COMPACT WEEK HERO ===== */
 .week-hero {
-    background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-dark) 100%);
+    background: var(--gradient-primary);
     color: white;
     padding: 48px 24px 40px;
     text-align: center;
@@ -192,88 +193,6 @@
     min-width: 0; /* prevent grid blowout */
 }
 
-/* ===== SIDEBAR (right column) ===== */
-.sidebar {
-    position: sticky;
-    top: 110px; /* below both nav bars */
-    max-height: calc(100vh - 130px);
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    scrollbar-width: thin;
-}
-
-.sidebar::-webkit-scrollbar { width: 4px; }
-.sidebar::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 2px; }
-
-.sidebar-card {
-    background: var(--bg-white);
-    border: 1px solid var(--border-light);
-    border-radius: 14px;
-    overflow: hidden;
-    transition: border-color 0.2s;
-}
-
-.sidebar-card:hover {
-    border-color: var(--primary-purple);
-}
-
-.sidebar-card-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 20px;
-    cursor: pointer;
-    user-select: none;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text-dark);
-    transition: background 0.2s;
-}
-
-.sidebar-card-header:hover {
-    background: rgba(102, 126, 234, 0.03);
-}
-
-.sidebar-card-header .sidebar-icon { font-size: 18px; }
-
-.sidebar-card-header .sidebar-chevron {
-    margin-left: auto;
-    font-size: 12px;
-    color: var(--text-light);
-    transition: transform 0.2s;
-}
-
-.sidebar-card.expanded .sidebar-chevron {
-    transform: rotate(180deg);
-}
-
-.sidebar-card-body {
-    display: none;
-    padding: 0 20px 20px;
-    font-size: 14px;
-    line-height: 1.6;
-    color: var(--text-body);
-}
-
-.sidebar-card.expanded .sidebar-card-body {
-    display: block;
-}
-
-.sidebar-label {
-    display: inline-block;
-    background: rgba(102, 126, 234, 0.08);
-    color: var(--primary-purple);
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 3px 8px;
-    border-radius: 4px;
-    margin-bottom: 8px;
-}
-
 /* ===== CONTENT SECTIONS ===== */
 .content-section {
     background: var(--bg-white);
@@ -293,7 +212,7 @@
     display: flex;
     align-items: center;
     gap: 14px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--gradient-primary);
     color: white;
     padding: 18px 24px;
     border-radius: 12px;
@@ -573,7 +492,7 @@
 .template-box:hover { border-color: var(--primary-purple); }
 
 .template-label {
-    background: linear-gradient(135deg, var(--primary-purple), var(--primary-dark));
+    background: var(--gradient-primary);
     color: white;
     font-size: 13px;
     font-weight: 700;
@@ -616,7 +535,7 @@
 }
 
 .eko-chat-header {
-    background: linear-gradient(135deg, var(--primary-purple), var(--primary-dark));
+    background: var(--gradient-primary);
     color: white;
     padding: 16px 20px;
     display: flex;
@@ -708,7 +627,7 @@
 .resource-number {
     width: 28px;
     height: 28px;
-    background: linear-gradient(135deg, var(--primary-purple), var(--primary-dark));
+    background: var(--gradient-primary);
     color: white;
     border-radius: 50%;
     display: flex;
@@ -745,7 +664,7 @@
     display: inline-block;
     margin-top: 12px;
     padding: 10px 20px;
-    background: linear-gradient(135deg, var(--primary-purple), var(--primary-dark));
+    background: var(--gradient-primary);
     color: white;
     text-decoration: none;
     border-radius: 8px;
@@ -824,7 +743,7 @@
 .nav-btn.nav-back:hover { border-color: var(--primary-purple); color: var(--primary-purple); }
 
 .nav-btn.nav-next {
-    background: linear-gradient(135deg, var(--primary-purple), var(--primary-dark));
+    background: var(--gradient-primary);
     color: white;
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.25);
 }
@@ -912,7 +831,7 @@
 .completion-section { margin-top: 40px; margin-bottom: 24px; }
 
 .completion-card {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: var(--gradient-primary);
     border-radius: 16px;
     padding: 40px;
     text-align: center;
@@ -1002,7 +921,7 @@
 .password-submit {
     width: 100%;
     padding: 12px;
-    background: linear-gradient(135deg, var(--primary-purple), var(--primary-dark));
+    background: var(--gradient-primary);
     color: white;
     border: none;
     border-radius: 10px;
@@ -1038,16 +957,6 @@
 @media (max-width: 960px) {
     .week-layout {
         grid-template-columns: 1fr;
-    }
-
-    .sidebar {
-        position: static;
-        max-height: none;
-    }
-
-    /* Collapse sidebar cards by default on mobile */
-    .sidebar-card:not(.expanded) .sidebar-card-body {
-        display: none;
     }
 }
 
@@ -1274,7 +1183,7 @@
 }
 
 .complete-week-btn {
-    background: linear-gradient(135deg, var(--primary-purple), var(--primary-dark));
+    background: var(--gradient-primary);
     color: white;
     border: none;
     padding: 16px 40px;
@@ -1494,7 +1403,7 @@
 .eko-disclaimer-btn {
     width: 100%;
     padding: 14px;
-    background: linear-gradient(135deg, var(--primary-purple), var(--primary-dark));
+    background: var(--gradient-primary);
     color: white;
     border: none;
     border-radius: 12px;
