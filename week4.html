@@ -28,14 +28,17 @@
             <a class="step-tab active" data-target="welcome" onclick="scrollToSection('welcome')">
                 <span class="step-num">1</span> Welcome
             </a>
+            <a class="step-tab" data-target="video" onclick="scrollToSection('video')">
+                <span class="step-num">2</span> Watch
+            </a>
             <a class="step-tab" data-target="experiment" onclick="scrollToSection('experiment')">
-                <span class="step-num">2</span> Retrospective
+                <span class="step-num">3</span> Retrospective
             </a>
             <a class="step-tab" data-target="plusone" onclick="scrollToSection('plusone')">
-                <span class="step-num">3</span> Next-Level
+                <span class="step-num">4</span> Next-Level
             </a>
             <a class="step-tab" data-target="eko" onclick="scrollToSection('eko')">
-                <span class="step-num">4</span> Reflect
+                <span class="step-num">5</span> Reflect
             </a>
         </div>
     </div>
@@ -63,7 +66,7 @@
                         <span class="section-icon">&#x1F44B;</span>
                         <h2>Welcome & Integration Week</h2>
                     </div>
-                    <p>Welcome to Week 4. This is Integration Week&#x2014;which means there's no new content, no new concept to absorb, no new video to watch. This week is about consolidation.</p>
+                    <p>Welcome to Week 4. This is Integration Week&#x2014;which means there's no new concept to absorb. This week is about consolidation.</p>
 
                     <p>You've spent three weeks building new muscle: the learner's posture, thinking in drafts, learning out loud. You've done experiments. You've reflected with Eko. You've felt the discomfort of doing something different. Now it's time to step back and ask: what's actually sticking? What shifted? And what do you want to deepen?</p>
 
@@ -76,7 +79,19 @@
                     </div>
                 </section>
 
-                <!-- Step 2: Retrospective -->
+                <!-- Step 2: Video -->
+                <section class="content-section" id="video">
+                    <div class="section-heading-panel">
+                        <span class="section-icon">&#x1F3AC;</span>
+                        <h2>This Week's Concept Drop</h2>
+                    </div>
+
+                    <div class="video-container">
+                        <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1166149070?h=7e24d5f0de&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Week 4"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+                    </div>
+                </section>
+
+                <!-- Step 3: Retrospective -->
                 <section class="content-section" id="experiment">
                     <div class="section-heading-panel">
                         <span class="section-icon">&#x1F9E0;</span>
@@ -375,7 +390,7 @@
         }
 
         function updateStepNav() {
-            var sections = ['welcome', 'experiment', 'plusone', 'eko'];
+            var sections = ['welcome', 'video', 'experiment', 'plusone', 'eko'];
             var tabs = document.querySelectorAll('.step-tab');
             var current = sections[0]; // always have an active tab
 
