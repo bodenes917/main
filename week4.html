@@ -243,30 +243,16 @@
                     <div class="eko-container">
                         <p class="eko-intro">After you complete your next-level experiment, return to Eko to unpack what deepened.</p>
 
-                        <div class="eko-chat-embed">
-                            <div class="eko-chat-header">
-                                <div class="eko-avatar">&#x1F916;</div>
-                                <div>
-                                    <h4>Chat with Eko</h4>
-                                    <p>Your AI reflection coach</p>
-                                </div>
-                            </div>
-                            <div class="eko-chat-body">
-                                <div class="eko-chat-frame">
-                                    <iframe
-                                        src="https://app.relevanceai.com/agents/f1db6c/91f42824-00dc-4e15-9c4d-c067da9413c0/d709b02d-5126-4206-b80b-54ac6bc11888/embed-chat?hide_tool_steps=true&hide_file_uploads=true&hide_conversation_list=false&bubble_style=agent&primary_color=%23685FFF&bubble_icon=pd%2Fchat&input_placeholder_text=Type+your+message...&hide_logo=false&hide_description=false"
-                                        width="100%"
-                                        height="500px"
-                                        frameborder="0"
-                                        allow="microphone"
-                                        style="border-radius: 8px; border: none;">
-                                    </iframe>
-                                </div>
-                                <div class="eko-starter-prompt">
-                                    <p><strong>&#x1F4A1; Pro tip:</strong> Start your next-level reflection with this prompt:</p>
-                                    <p class="starter-text">"Eko, I just completed my next-level experiment for Week 4 of the AI Readiness sprint. I want to reflect on what deepened and what I'm noticing now. Can you help me unpack this?"</p>
-                                </div>
-                            </div>
+                        <div class="return-to-eko" style="text-align: center; padding: 32px 24px;">
+                            <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 16px;">Continue the conversation with Eko from Part 1 to reflect on your next-level experiment.</p>
+                            <a onclick="scrollToSection('experiment')" class="btn-return-to-eko" style="display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; background: linear-gradient(135deg, #685FFF 0%, #5a4fe6 100%); color: white; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 12px rgba(104, 95, 255, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(104, 95, 255, 0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(104, 95, 255, 0.3)';">
+                                <span style="font-size: 20px;">&#x2191;</span> Return to Chat with Eko
+                            </a>
+                        </div>
+
+                        <div class="eko-starter-prompt" style="margin-top: 16px;">
+                            <p><strong>&#x1F4A1; Pro tip:</strong> Start your next-level reflection with this prompt:</p>
+                            <p class="starter-text">"Eko, I just completed my next-level experiment for Week 4 of the AI Readiness sprint. I want to reflect on what deepened and what I'm noticing now. Can you help me unpack this?"</p>
                         </div>
 
                         <div class="eko-guide">
