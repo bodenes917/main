@@ -223,6 +223,11 @@
     font-size: 28px;
     margin-bottom: 0;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
 }
 
 .section-heading-panel h2,
@@ -327,6 +332,11 @@
 
 .geek-corner-header .geek-icon {
     font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
 }
 
 .geek-corner-header h2 {
@@ -392,17 +402,22 @@
 
 /* ===== CALLOUT BOXES ===== */
 .callout {
-    padding: 20px;
-    border-radius: 10px;
+    padding: 20px 20px 20px 18px;
+    border-radius: 8px;
     margin: 20px 0;
-    border-left: 3px solid;
+    border-left: 2px solid;
     font-size: 15px;
+    background: #ffffff;
 }
 
-.callout-goal { background: #fef7e8; border-color: #f59e0b; }
-.callout-success { background: #e8f4fd; border-color: #3b82f6; }
-.callout-warning { background: #fef2f2; border-color: #ef4444; }
-.callout-info { background: #fffbeb; border-color: #fbbf24; }
+.callout-goal { border-color: #d97706; background: linear-gradient(to right, rgba(217, 119, 6, 0.04), transparent); }
+.callout-goal strong { color: #92400e; }
+.callout-success { border-color: #2563eb; background: linear-gradient(to right, rgba(37, 99, 235, 0.04), transparent); }
+.callout-success strong { color: #1e40af; }
+.callout-warning { border-color: #dc2626; background: linear-gradient(to right, rgba(220, 38, 38, 0.04), transparent); }
+.callout-warning strong { color: #991b1b; }
+.callout-info { border-color: #d97706; background: linear-gradient(to right, rgba(217, 119, 6, 0.04), transparent); }
+.callout-info strong { color: #92400e; }
 
 /* ===== VIDEO ===== */
 .video-container { margin: 24px 0; }
@@ -1170,31 +1185,44 @@
     }
 }
 
-/* ===== COMPLETION BADGE POPUP ===== */
-.completion-badge-popup {
+/* ===== COMPLETION TOAST ===== */
+.completion-toast {
     position: fixed;
-    top: 50%;
+    bottom: 32px;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
+    transform: translateX(-50%) translateY(20px);
     z-index: 10000;
     opacity: 0;
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
     pointer-events: none;
+    background: var(--text-dark);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
 }
-.completion-badge-popup.show {
+.completion-toast.show {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translateX(-50%) translateY(0);
 }
-.badge-content {
-    background: white;
-    border-radius: 20px;
-    padding: 40px 48px;
-    text-align: center;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+.completion-toast .toast-check {
+    width: 18px;
+    height: 18px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
 }
-.badge-icon { font-size: 48px; margin-bottom: 12px; }
-.badge-content h3 { font-size: 22px; color: var(--text-dark); margin-bottom: 6px; }
-.badge-content p { font-size: 15px; color: var(--text-light); }
 
 /* ===== MARK WEEK COMPLETE BUTTON ===== */
 .complete-week-container {
@@ -1245,32 +1273,7 @@
     color: var(--text-light);
 }
 
-/* ===== EMOJI BURST ANIMATION ===== */
-.emoji-burst {
-    position: fixed;
-    bottom: -50px;
-    font-size: 32px;
-    pointer-events: none;
-    z-index: 10001;
-    animation: burst 2s ease-out forwards;
-}
-
-@keyframes burst {
-    0% {
-        bottom: -50px;
-        opacity: 1;
-        transform: translateX(0) rotate(0deg) scale(0.5);
-    }
-    50% {
-        opacity: 1;
-        transform: translateX(var(--drift)) rotate(180deg) scale(1);
-    }
-    100% {
-        bottom: 110vh;
-        opacity: 0;
-        transform: translateX(var(--drift)) rotate(360deg) scale(0.8);
-    }
-}
+/* (emoji burst removed — replaced by completion toast) */
 
 /* ===== EKO DISCLAIMER MODAL ===== */
 .eko-disclaimer-overlay {
