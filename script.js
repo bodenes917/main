@@ -977,18 +977,10 @@ function initWeekPageFeatures() {
     });
 }
 
-// Auto-complete a week when both eko is visited AND experiment is done
+// Check if auto-complete conditions are met (kept as no-op — users click "Mark Week Complete" manually)
 function checkAutoComplete(weekKey, weekNumber, visitedSections) {
-    var progress = getProgress();
-    // Already complete — nothing to do
-    if (progress.completedWeeks && progress.completedWeeks.includes(weekKey)) return;
-
-    var ekoVisited = visitedSections.indexOf('eko') !== -1;
-    var experimentDone = !!localStorage.getItem('experimentDone_' + weekKey);
-
-    if (ekoVisited && experimentDone) {
-        completeWeek(weekNumber);
-    }
+    // Intentionally does nothing.
+    // Week completion is triggered by the user clicking the "Mark Week Complete" button.
 }
 
 function updateReadingProgress(sections, visitedSections, weekKey, weekNumber) {
