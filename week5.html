@@ -60,7 +60,7 @@
                 <!-- Step 1: Welcome & Goal -->
                 <section class="content-section" id="welcome">
                     <div class="section-heading-panel">
-                        <span class="section-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+                        <span class="section-icon">&#x1F44B;</span>
                         <h2>Welcome & Weekly Goal</h2>
                     </div>
                     <p>Welcome to Week 5&#x2014;the final week of your AI Readiness sprint. You've practised the learner's posture. You've practised refining your prompts. You've practised learning out loud. You've deepened one of those practices through your next-level experiment. Now it's time to embed what you've learned into how you actually work.</p>
@@ -81,7 +81,7 @@
                 <!-- Step 2: Video -->
                 <section class="content-section" id="video">
                     <div class="section-heading-panel">
-                        <span class="section-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="white" stroke="none"/></svg></span>
+                        <span class="section-icon">&#x1F3AC;</span>
                         <h2>This Week's Concept Drop</h2>
                     </div>
 
@@ -97,7 +97,7 @@
                 <!-- Step 3: Experiment -->
                 <section class="content-section" id="experiment">
                     <div class="section-heading-panel">
-                        <span class="section-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l1 7H8L9 3z"/><path d="M8 10h8v2a4 4 0 01-8 0v-2z"/><line x1="12" y1="16" x2="12" y2="21"/><line x1="9" y1="21" x2="15" y2="21"/></svg></span>
+                        <span class="section-icon">&#x1F938;</span>
                         <h2>Your Weekly Experiment</h2>
                     </div>
                     <p>This week, you're going to redesign a workflow. Not your entire job&#x2014;one small, repeatable workflow that you do at least once a week and that takes 30-60 minutes.</p>
@@ -322,7 +322,7 @@
                 <!-- Step 4: Eko Reflection -->
                 <section class="content-section eko-section" id="eko">
                     <div class="section-heading-panel" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
-                        <span class="section-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span>
+                        <span class="section-icon">&#x1F9E0;</span>
                         <h2>Time to Reflect with Eko</h2>
                     </div>
 
@@ -364,7 +364,7 @@
                 <!-- Geek Corner (standalone section below Reflect) -->
                 <div class="geek-corner-standalone">
                     <div class="geek-corner-header">
-                        <span class="geek-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#667eea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></span>
+                        <span class="geek-icon">&#x1F913;</span>
                         <div>
                             <h2>The Deep Dive</h2>
                             <p class="geek-subtitle">Not required &#x2014; for those who want to go deeper.</p>
@@ -435,6 +435,7 @@
         function scrollToSection(id) {
             var el = document.getElementById(id);
             if (el) {
+                if (el.classList.contains('collapsed')) el.classList.remove('collapsed');
                 var offset = 110;
                 var top = el.getBoundingClientRect().top + window.pageYOffset - offset;
                 window.scrollTo({ top: top, behavior: 'smooth' });

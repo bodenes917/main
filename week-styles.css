@@ -217,17 +217,72 @@
     padding: 18px 24px;
     border-radius: 12px;
     margin-bottom: 24px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
+
+.section-heading-panel .section-chevron {
+    margin-left: auto;
+    font-size: 14px;
+    transition: transform 0.3s ease;
+    opacity: 0.7;
+    flex-shrink: 0;
+}
+
+.content-section.collapsed .section-heading-panel .section-chevron {
+    transform: rotate(-90deg);
+}
+
+.content-section.collapsed .section-heading-panel {
+    margin-bottom: 0;
+    border-radius: 12px;
+}
+
+.section-body {
+    overflow: hidden;
+    transition: max-height 0.35s ease, opacity 0.25s ease, padding 0.35s ease;
+    max-height: 5000px;
+    opacity: 1;
+}
+
+.content-section.collapsed .section-body {
+    max-height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.geek-corner-header .section-chevron {
+    margin-left: auto;
+    font-size: 14px;
+    transition: transform 0.3s ease;
+    opacity: 0.5;
+    flex-shrink: 0;
+}
+
+.geek-corner-standalone.collapsed .geek-corner-header .section-chevron {
+    transform: rotate(-90deg);
+}
+
+.geek-corner-standalone.collapsed .geek-corner-body {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0;
+}
+
+.geek-corner-body {
+    transition: max-height 0.35s ease, opacity 0.25s ease, padding 0.35s ease;
+    max-height: 3000px;
+    opacity: 1;
+    overflow: hidden;
 }
 
 .section-heading-panel .section-icon {
     font-size: 28px;
     margin-bottom: 0;
     flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
 }
 
 .section-heading-panel h2,
@@ -328,15 +383,12 @@
     padding: 24px 32px;
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.06), rgba(118, 75, 162, 0.04));
     border-bottom: 1px solid var(--border-light);
+    cursor: pointer;
+    user-select: none;
 }
 
 .geek-corner-header .geek-icon {
     font-size: 26px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 26px;
-    height: 26px;
 }
 
 .geek-corner-header h2 {
@@ -1185,44 +1237,31 @@
     }
 }
 
-/* ===== COMPLETION TOAST ===== */
-.completion-toast {
+/* ===== COMPLETION BADGE POPUP ===== */
+.completion-badge-popup {
     position: fixed;
-    bottom: 32px;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%) translateY(20px);
+    transform: translate(-50%, -50%) scale(0.8);
     z-index: 10000;
     opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: all 0.3s ease;
     pointer-events: none;
-    background: var(--text-dark);
-    color: #fff;
-    padding: 14px 28px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.2px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    white-space: nowrap;
 }
-.completion-toast.show {
+.completion-badge-popup.show {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translate(-50%, -50%) scale(1);
 }
-.completion-toast .toast-check {
-    width: 18px;
-    height: 18px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    flex-shrink: 0;
+.badge-content {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 48px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
 }
+.badge-icon { font-size: 48px; margin-bottom: 12px; }
+.badge-content h3 { font-size: 22px; color: var(--text-dark); margin-bottom: 6px; }
+.badge-content p { font-size: 15px; color: var(--text-light); }
 
 /* ===== MARK WEEK COMPLETE BUTTON ===== */
 .complete-week-container {
@@ -1273,7 +1312,32 @@
     color: var(--text-light);
 }
 
-/* (emoji burst removed — replaced by completion toast) */
+/* ===== EMOJI BURST ANIMATION ===== */
+.emoji-burst {
+    position: fixed;
+    bottom: -50px;
+    font-size: 32px;
+    pointer-events: none;
+    z-index: 10001;
+    animation: burst 2s ease-out forwards;
+}
+
+@keyframes burst {
+    0% {
+        bottom: -50px;
+        opacity: 1;
+        transform: translateX(0) rotate(0deg) scale(0.5);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(var(--drift)) rotate(180deg) scale(1);
+    }
+    100% {
+        bottom: 110vh;
+        opacity: 0;
+        transform: translateX(var(--drift)) rotate(360deg) scale(0.8);
+    }
+}
 
 /* ===== EKO DISCLAIMER MODAL ===== */
 .eko-disclaimer-overlay {

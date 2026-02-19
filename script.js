@@ -154,18 +154,111 @@ function resetProgress() {
     }
 }
 
-// ===== COMPLETION TOAST =====
+// ===== COMPLETION BADGE WITH EMOJI BURST =====
 function showCompletionBadge(weekNumber) {
-    var toast = document.createElement('div');
-    toast.className = 'completion-toast';
-    toast.innerHTML = '<span class="toast-check"><i class="fas fa-check"></i></span> Week ' + weekNumber + ' complete';
-    document.body.appendChild(toast);
+    // Create emoji burst
+    createEmojiBurst();
 
-    setTimeout(function() { toast.classList.add('show'); }, 50);
-    setTimeout(function() {
-        toast.classList.remove('show');
-        setTimeout(function() { toast.remove(); }, 300);
+    const badge = document.createElement('div');
+    badge.className = 'completion-badge-popup';
+    badge.innerHTML = `
+        <div class="badge-content">
+            <div class="badge-icon">🎉</div>
+            <h3>Week ${weekNumber} Complete!</h3>
+            <p>Great work! You're building the muscle.</p>
+        </div>
+    `;
+    document.body.appendChild(badge);
+
+    setTimeout(() => {
+        badge.classList.add('show');
+    }, 100);
+
+    setTimeout(() => {
+        badge.classList.remove('show');
+        setTimeout(() => badge.remove(), 300);
     }, 3000);
+}
+
+// ===== EMOJI BURST CELEBRATION =====
+function createEmojiBurst() {
+    const emojis = ['🎉', '🎊', '✨', '🌟', '⭐', '💫', '🚀', '🔥', '💪', '👏', '🎯', '💯'];
+    const burstCount = 30;
+
+    for (let i = 0; i < burstCount; i++) {
+        const emoji = document.createElement('div');
+        emoji.className = 'emoji-burst';
+        emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+        // Random starting position along the bottom
+        const startX = Math.random() * 100;
+        emoji.style.left = startX + '%';
+
+        // Random animation delay
+        emoji.style.animationDelay = (Math.random() * 0.3) + 's';
+
+        // Random horizontal drift
+        const drift = (Math.random() - 0.5) * 200;
+        emoji.style.setProperty('--drift', drift + 'px');
+
+        document.body.appendChild(emoji);
+
+        // Remove after animation completes
+        setTimeout(() => emoji.remove(), 2000);
+    }
+}
+
+// ===== COLLAPSIBLE SECTIONS =====
+function initCollapsibleSections() {
+    // Wrap content-section children (after heading) in a .section-body div
+    document.querySelectorAll('.content-section').forEach(function(section) {
+        var heading = section.querySelector('.section-heading-panel');
+        if (!heading) return;
+
+        // Add chevron
+        var chevron = document.createElement('span');
+        chevron.className = 'section-chevron';
+        chevron.innerHTML = '&#x25BC;';
+        heading.appendChild(chevron);
+
+        // Wrap everything after heading in section-body
+        var body = document.createElement('div');
+        body.className = 'section-body';
+        var children = Array.from(section.children);
+        var afterHeading = false;
+        children.forEach(function(child) {
+            if (child === heading) { afterHeading = true; return; }
+            if (afterHeading) body.appendChild(child);
+        });
+        section.appendChild(body);
+
+        // Toggle on heading click
+        heading.addEventListener('click', function() {
+            section.classList.toggle('collapsed');
+        });
+    });
+
+    // Same for geek corner
+    document.querySelectorAll('.geek-corner-standalone').forEach(function(corner) {
+        var header = corner.querySelector('.geek-corner-header');
+        if (!header) return;
+
+        var chevron = document.createElement('span');
+        chevron.className = 'section-chevron';
+        chevron.innerHTML = '&#x25BC;';
+        header.appendChild(chevron);
+
+        header.addEventListener('click', function() {
+            corner.classList.toggle('collapsed');
+        });
+    });
+}
+
+// Run on DOM ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCollapsibleSections);
+} else {
+    initCollapsibleSections();
 }
 
 // ===== CERTIFICATE GENERATION =====
