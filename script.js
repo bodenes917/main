@@ -154,58 +154,18 @@ function resetProgress() {
     }
 }
 
-// ===== COMPLETION BADGE WITH EMOJI BURST =====
+// ===== COMPLETION TOAST =====
 function showCompletionBadge(weekNumber) {
-    // Create emoji burst
-    createEmojiBurst();
+    var toast = document.createElement('div');
+    toast.className = 'completion-toast';
+    toast.innerHTML = '<span class="toast-check"><i class="fas fa-check"></i></span> Week ' + weekNumber + ' complete';
+    document.body.appendChild(toast);
 
-    const badge = document.createElement('div');
-    badge.className = 'completion-badge-popup';
-    badge.innerHTML = `
-        <div class="badge-content">
-            <div class="badge-icon">🎉</div>
-            <h3>Week ${weekNumber} Complete!</h3>
-            <p>Great work! You're building the muscle.</p>
-        </div>
-    `;
-    document.body.appendChild(badge);
-
-    setTimeout(() => {
-        badge.classList.add('show');
-    }, 100);
-
-    setTimeout(() => {
-        badge.classList.remove('show');
-        setTimeout(() => badge.remove(), 300);
+    setTimeout(function() { toast.classList.add('show'); }, 50);
+    setTimeout(function() {
+        toast.classList.remove('show');
+        setTimeout(function() { toast.remove(); }, 300);
     }, 3000);
-}
-
-// ===== EMOJI BURST CELEBRATION =====
-function createEmojiBurst() {
-    const emojis = ['🎉', '🎊', '✨', '🌟', '⭐', '💫', '🚀', '🔥', '💪', '👏', '🎯', '💯'];
-    const burstCount = 30;
-
-    for (let i = 0; i < burstCount; i++) {
-        const emoji = document.createElement('div');
-        emoji.className = 'emoji-burst';
-        emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-
-        // Random starting position along the bottom
-        const startX = Math.random() * 100;
-        emoji.style.left = startX + '%';
-
-        // Random animation delay
-        emoji.style.animationDelay = (Math.random() * 0.3) + 's';
-
-        // Random horizontal drift
-        const drift = (Math.random() - 0.5) * 200;
-        emoji.style.setProperty('--drift', drift + 'px');
-
-        document.body.appendChild(emoji);
-
-        // Remove after animation completes
-        setTimeout(() => emoji.remove(), 2000);
-    }
 }
 
 // ===== CERTIFICATE GENERATION =====
