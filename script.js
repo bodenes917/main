@@ -150,6 +150,12 @@ function exportProgress() {
 function resetProgress() {
     if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
         localStorage.removeItem('aiReadinessProgress');
+        // Clear per-week visited sections, experiment flags, and eko agreement
+        for (var w = 1; w <= 5; w++) {
+            localStorage.removeItem('visitedSections_week' + w);
+            localStorage.removeItem('experimentDone_week' + w);
+        }
+        localStorage.removeItem('ekoAgreed');
         location.reload();
     }
 }
