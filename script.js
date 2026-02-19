@@ -411,12 +411,12 @@ function generateCertificate() {
     ctx.fillText('Certificate of Completion', 600, 220);
     
     ctx.font = '32px -apple-system, sans-serif';
-    ctx.fillText('AI Readiness Sprint', 600, 300);
+    ctx.fillText('AI Starter Sprint', 600, 300);
     
     ctx.font = '24px -apple-system, sans-serif';
     ctx.fillStyle = '#666';
     ctx.fillText('This certifies that you have successfully completed', 600, 380);
-    ctx.fillText('all 5 weeks of the AI Readiness Sprint', 600, 420);
+    ctx.fillText('all 5 weeks of the AI Starter Sprint', 600, 420);
     
     const completionDate = new Date().toLocaleDateString('en-US', { 
         year: 'numeric', 
@@ -439,7 +439,7 @@ function generateCertificate() {
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = 'AI-Readiness-Sprint-Certificate.png';
+        link.download = 'AI-Starter-Sprint-Certificate.png';
         link.click();
     });
 }
@@ -634,7 +634,7 @@ function shareWeekCompletion(weekNumber, platform) {
         5: "Your New Operating System"
     };
     
-    const text = `Just completed Week ${weekNumber}: ${weekTitles[weekNumber]} of the AI Readiness Sprint! 🚀 #AILearning #ProfessionalDevelopment`;
+    const text = `Just completed Week ${weekNumber}: ${weekTitles[weekNumber]} of the AI Starter Sprint! 🚀 #AILearning #ProfessionalDevelopment`;
     const url = window.location.origin;
     
     if (platform === 'twitter') {
@@ -647,7 +647,7 @@ function shareWeekCompletion(weekNumber, platform) {
 }
 
 function shareSprintCompletion(platform) {
-    const text = `🎉 I just completed the entire AI Readiness Sprint! 5 weeks of learning agility, iteration, and workflow transformation. #AILearning #ProfessionalDevelopment #Upskilling`;
+    const text = `🎉 I just completed the entire AI Starter Sprint! 5 weeks of learning agility, iteration, and workflow transformation. #AILearning #ProfessionalDevelopment #Upskilling`;
     const url = window.location.origin;
     
     if (platform === 'twitter') {
@@ -662,7 +662,7 @@ function shareSprintCompletion(platform) {
 function shareToTwitter() {
     const progress = getProgress();
     const completedCount = progress.completedWeeks ? progress.completedWeeks.length : 0;
-    const text = `Making progress on the AI Readiness Sprint! ${completedCount}/5 weeks completed. Building the muscle for AI-powered work. 🚀 #AILearning`;
+    const text = `Making progress on the AI Starter Sprint! ${completedCount}/5 weeks completed. Building the muscle for AI-powered work. 🚀 #AILearning`;
     const url = window.location.origin;
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
     window.open(twitterUrl, '_blank', 'width=600,height=400');
