@@ -757,6 +757,31 @@
     font-size: 13px;
 }
 
+/* ===== POWERED BY BADGE ===== */
+.powered-by {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 12px;
+    opacity: 0.35;
+    transition: opacity 0.4s ease;
+}
+.powered-by:hover {
+    opacity: 0.7;
+}
+.powered-by-logo {
+    flex-shrink: 0;
+}
+.powered-by span {
+    font-size: 11px;
+    color: var(--text-body);
+    letter-spacing: 0.2px;
+}
+.powered-by strong {
+    font-weight: 700;
+}
+
 /* ===== TRACK SELECTOR ===== */
 .track-selector {
     text-align: center;
@@ -1098,7 +1123,7 @@
 .back-to-top-btn {
     position: fixed;
     bottom: 28px;
-    left: 24px;
+    right: 24px;
     width: 44px;
     height: 44px;
     border-radius: 50%;
@@ -1130,13 +1155,12 @@
     box-shadow: 0 6px 20px rgba(102,126,234,0.4);
 }
 
-/* On mobile: larger tap target, move to right (chat bubble hidden on mobile) */
+/* On mobile: larger tap target */
 @media (max-width: 768px) {
     .back-to-top-btn {
         width: 48px;
         height: 48px;
         bottom: 20px;
-        left: auto;
         right: 16px;
         font-size: 16px;
     }
