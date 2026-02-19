@@ -208,57 +208,114 @@ function createEmojiBurst() {
     }
 }
 
-// ===== COLLAPSIBLE SECTIONS =====
-function initCollapsibleSections() {
-    // Wrap content-section children (after heading) in a .section-body div
-    document.querySelectorAll('.content-section').forEach(function(section) {
-        var heading = section.querySelector('.section-heading-panel');
-        if (!heading) return;
+// ===== WIZARD STEPPER =====
+function initWizardStepper() {
+    var sections = document.querySelectorAll('.main-content > .content-section');
+    var tabs = document.querySelectorAll('.step-tab');
+    var geekCorner = document.querySelector('.geek-corner-standalone');
+    var weekNav = document.querySelector('.week-navigation');
+    if (!sections.length) return;
 
-        // Add chevron
-        var chevron = document.createElement('span');
-        chevron.className = 'section-chevron';
-        chevron.innerHTML = '&#x25BC;';
-        heading.appendChild(chevron);
+    var stepIds = [];
+    sections.forEach(function(s) { stepIds.push(s.id); });
 
-        // Wrap everything after heading in section-body
-        var body = document.createElement('div');
-        body.className = 'section-body';
-        var children = Array.from(section.children);
-        var afterHeading = false;
-        children.forEach(function(child) {
-            if (child === heading) { afterHeading = true; return; }
-            if (afterHeading) body.appendChild(child);
+    var currentStep = 0;
+
+    function goToStep(index) {
+        if (index < 0 || index >= stepIds.length) return;
+        currentStep = index;
+
+        // Mark section as visited for progress tracking
+        var sectionId = stepIds[index];
+        var body = document.body;
+        var weekNum = body.getAttribute('data-week');
+        if (weekNum) {
+            var weekKey = 'week' + weekNum;
+            var visited = JSON.parse(localStorage.getItem('visitedSections_' + weekKey) || '[]');
+            if (visited.indexOf(sectionId) === -1) {
+                visited.push(sectionId);
+                localStorage.setItem('visitedSections_' + weekKey, JSON.stringify(visited));
+                var milestones = { welcome: 10, video: 30, experiment: 50, eko: 80 };
+                var milestone = milestones[sectionId] || 0;
+                var currentPct = 0;
+                try { currentPct = getProgress().weekProgress[weekKey] || 0; } catch(e) {}
+                if (milestone > currentPct) {
+                    try { updateWeekProgress(parseInt(weekNum), milestone); } catch(e) {}
+                }
+            }
+        }
+
+        // Show/hide sections
+        sections.forEach(function(s, i) {
+            s.classList.remove('wizard-active');
+            if (i === index) s.classList.add('wizard-active');
         });
-        section.appendChild(body);
 
-        // Toggle on heading click
-        heading.addEventListener('click', function() {
-            section.classList.toggle('collapsed');
+        // Update tabs
+        tabs.forEach(function(tab, i) {
+            tab.classList.remove('active');
+            if (i < index) tab.classList.add('visited');
+            if (i === index) tab.classList.add('active');
+        });
+
+        // Show geek corner + bottom nav on last step
+        var isLast = (index === stepIds.length - 1);
+        if (geekCorner) geekCorner.classList.toggle('wizard-visible', isLast);
+        if (weekNav) weekNav.classList.toggle('wizard-visible', isLast);
+
+        // Scroll to top of content area
+        var content = document.querySelector('.week-content');
+        if (content) {
+            var top = content.getBoundingClientRect().top + window.pageYOffset - 100;
+            window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+    }
+
+    // Add wizard nav buttons to each section
+    sections.forEach(function(section, i) {
+        var nav = document.createElement('div');
+        nav.className = 'wizard-nav';
+
+        if (i > 0) {
+            var back = document.createElement('button');
+            back.className = 'wizard-btn wizard-btn-back';
+            back.innerHTML = '&larr; Back';
+            back.addEventListener('click', function() { goToStep(i - 1); });
+            nav.appendChild(back);
+        }
+
+        if (i < sections.length - 1) {
+            var next = document.createElement('button');
+            next.className = 'wizard-btn wizard-btn-next';
+            next.innerHTML = 'Continue &rarr;';
+            next.addEventListener('click', function() { goToStep(i + 1); });
+            nav.appendChild(next);
+        }
+
+        section.appendChild(nav);
+    });
+
+    // Wire up tab clicks
+    tabs.forEach(function(tab, i) {
+        tab.removeAttribute('onclick');
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            goToStep(i);
         });
     });
 
-    // Same for geek corner
-    document.querySelectorAll('.geek-corner-standalone').forEach(function(corner) {
-        var header = corner.querySelector('.geek-corner-header');
-        if (!header) return;
+    // Expose globally so inline scripts can use it
+    window.goToWizardStep = goToStep;
 
-        var chevron = document.createElement('span');
-        chevron.className = 'section-chevron';
-        chevron.innerHTML = '&#x25BC;';
-        header.appendChild(chevron);
-
-        header.addEventListener('click', function() {
-            corner.classList.toggle('collapsed');
-        });
-    });
+    // Start at step 0
+    goToStep(0);
 }
 
 // Run on DOM ready
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCollapsibleSections);
+    document.addEventListener('DOMContentLoaded', initWizardStepper);
 } else {
-    initCollapsibleSections();
+    initWizardStepper();
 }
 
 // ===== CERTIFICATE GENERATION =====

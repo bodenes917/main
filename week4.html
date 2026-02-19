@@ -25,16 +25,16 @@
     <!-- Step Navigation Tabs -->
     <div class="step-nav" id="stepNav">
         <div class="step-nav-inner">
-            <a class="step-tab active" data-target="welcome" onclick="scrollToSection('welcome')">
+            <a class="step-tab active" data-target="welcome" >
                 <span class="step-num">1</span> Welcome
             </a>
-            <a class="step-tab" data-target="video" onclick="scrollToSection('video')">
+            <a class="step-tab" data-target="video" >
                 <span class="step-num">2</span> Watch
             </a>
-            <a class="step-tab" data-target="experiment" onclick="scrollToSection('experiment')">
+            <a class="step-tab" data-target="experiment" >
                 <span class="step-num">3</span> Experiment
             </a>
-            <a class="step-tab" data-target="eko" onclick="scrollToSection('eko')">
+            <a class="step-tab" data-target="eko" >
                 <span class="step-num">4</span> Reflect
             </a>
         </div>
@@ -183,7 +183,7 @@
                         <h2 style="font-size: 22px; color: #78350f; margin: 0 0 12px;">Come Back &amp; Reflect with Eko</h2>
                         <p style="font-size: 15px; color: #92400e; margin: 0 0 24px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.6;">Once you've completed your next-level experiment, return to Eko to unpack what deepened.</p>
 
-                        <a onclick="scrollToSection('experiment')" style="display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; background: linear-gradient(135deg, #685FFF 0%, #5a4fe6 100%); color: white; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 12px rgba(104, 95, 255, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(104, 95, 255, 0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(104, 95, 255, 0.3)';">
+                        <a  style="display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; background: linear-gradient(135deg, #685FFF 0%, #5a4fe6 100%); color: white; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 12px rgba(104, 95, 255, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(104, 95, 255, 0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(104, 95, 255, 0.3)';">
                             <span style="font-size: 18px;">&#x2191;</span> Return to Chat with Eko
                         </a>
                     </div>
@@ -292,45 +292,6 @@
 
     <script src="script.js"></script>
 
-    <script>
-        function scrollToSection(id) {
-            var el = document.getElementById(id);
-            if (el) {
-                if (el.classList.contains('collapsed')) el.classList.remove('collapsed');
-                var offset = 110;
-                var top = el.getBoundingClientRect().top + window.pageYOffset - offset;
-                window.scrollTo({ top: top, behavior: 'smooth' });
-            }
-        }
-
-        function updateStepNav() {
-            var sections = ['welcome', 'video', 'experiment', 'eko'];
-            var tabs = document.querySelectorAll('.step-tab');
-            var current = sections[0];
-
-            for (var i = 0; i < sections.length; i++) {
-                var section = document.getElementById(sections[i]);
-                if (section) {
-                    var rect = section.getBoundingClientRect();
-                    if (rect.top <= 120) {
-                        current = sections[i];
-                    }
-                }
-            }
-
-            for (var j = 0; j < tabs.length; j++) {
-                tabs[j].classList.remove('active');
-                if (tabs[j].getAttribute('data-target') === current) {
-                    tabs[j].classList.add('active');
-                }
-            }
-        }
-
-        var scrollTimer;
-        window.addEventListener('scroll', function() {
-            clearTimeout(scrollTimer);
-            scrollTimer = setTimeout(updateStepNav, 30);
-        });
-    </script>
+    <!-- Wizard stepper handled by script.js -->
 </body>
 </html>
